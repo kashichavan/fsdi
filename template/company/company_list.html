@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company List</title>
+    <style>
+        /* Reset and Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8e44ad, #3498db);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 1s ease;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        /* List Styling */
+        ul {
+            list-style-type: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+            transition: transform 0.3s ease;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Highlight scheduled companies */
+        .scheduled {
+            background-color: #e8f5e9; /* Light green background for scheduled companies */
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+
+        a:hover {
+            color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* Add Button Styling */
+        .add-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .add-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Company List</h2>
+        <ul>
+            {% for company in companies %}
+                <li class="{% if company.is_scheduled %}scheduled{% endif %}">
+                    <a href="{% url 'company:company_detail' company.pk %}">{{ company.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'company:company_create' %}" class="add-btn">Add New Company</a>
+    </div>
+
+    <script>
+        // Apply scale animation to list items on hover
+        document.querySelectorAll("li").forEach(item => {
+            item.addEventListener("mouseover", () => {
+                item.style.transform = "scale(1.05)";
+            });
+            item.addEventListener("mouseout", () => {
+                item.style.transform = "scale(1)";
+            });
+        });
+    </script>
+</body>
+</html>

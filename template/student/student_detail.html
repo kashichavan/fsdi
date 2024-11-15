@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        /* General Reset and Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Card Styling */
+        .student-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .student-card h2 {
+            color: #3498db;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .student-info {
+            margin-bottom: 25px;
+        }
+
+        .student-info p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .student-info strong {
+            color: #3498db;
+        }
+
+        /* Button Styling */
+        .actions a {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: normal;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Edit Button */
+        .actions a.edit-btn {
+            background-color: #a0e4b0; /* Light green */
+            color: #333;
+        }
+
+        .actions a.edit-btn:hover {
+            background-color: #7ccf7f; /* Slightly darker green */
+            transform: translateY(-2px);
+        }
+
+        /* Delete Button */
+        .actions a.delete-btn {
+            background-color: #f7a3a3; /* Light red */
+            color: #333;
+        }
+
+        .actions a.delete-btn:hover {
+            background-color: #f08383; /* Slightly darker red */
+            transform: translateY(-2px);
+        }
+
+        /* Back Button */
+        .actions a.back-btn {
+            background-color: #a3c4f3; /* Light blue */
+            color: #333;
+        }
+
+        .actions a.back-btn:hover {
+            background-color: #7fa3d9; /* Slightly darker blue */
+            transform: translateY(-2px);
+        }
+
+        /* View Companies Button */
+        .actions a.companies-btn {
+            background-color: #f2c4f3; /* Light purple */
+            color: #333;
+        }
+
+        .actions a.companies-btn:hover {
+            background-color: #e2a0d9; /* Slightly darker purple */
+            transform: translateY(-2px);
+        }
+
+        /* Animation for fading in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="student-card">
+        <h2>Student Details</h2>
+        <div class="student-info">
+            <p><strong>Name:</strong> {{ student.name }}</p>
+            <p><strong>Phone:</strong> {{ student.ph_no }}</p>
+            <p><strong>Email:</strong> {{ student.email }}</p>
+        </div>
+
+        <div class="actions">
+            <!-- Edit Button -->
+            <a href="{% url 'student:student_update' student.pk %}" class="edit-btn">Edit</a>
+
+            <!-- Delete Button -->
+            <a href="{% url 'student:student_delete' student.pk %}" class="delete-btn" 
+               onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
+
+            <!-- Back to List Button -->
+            <a href="{% url 'student:student_list' %}" class="back-btn">Back to List</a>
+
+            <!-- View Companies Button -->
+            <a href="{% url 'student:student_companies' student.pk %}" class="companies-btn">View Companies</a>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Confirmation for deletion with alert
+        const deleteButton = document.querySelector('.delete-btn');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function(event) {
+                const confirmDelete = confirm('Are you sure you want to delete this student?');
+                if (!confirmDelete) {
+                    event.preventDefault(); // Prevent the link from navigating
+                }
+            });
+        }
+    </script>
+</body>
+</html>

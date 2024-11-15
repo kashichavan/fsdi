@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Students</title>
+    <style>
+        /* General Reset and Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Card Styling */
+        .upload-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .upload-card h2 {
+            color: #3498db;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Input Styling */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 15px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        input[type="file"]:hover {
+            background-color: #eaf3fb;
+            transform: scale(1.02);
+        }
+
+        /* Button Styling */
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #3498db;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2874a6;
+            transform: scale(1.05);
+        }
+
+        /* Link Styling */
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: #2874a6;
+            transform: translateX(5px);
+        }
+
+        /* Messages Styling */
+        ul {
+            margin-top: 15px;
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Animation for fading in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-card">
+        <h2>Upload Students for {{ company.name }}</h2>
+        <form method="post" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            <label for="excel_file">Select Excel file:</label>
+            <input type="file" name="excel_file" accept=".xlsx, .xls" required>
+            <button type="submit">Upload</button>
+        </form>
+        <a href="{% url 'company:company_detail' company.id %}">Back to Company Details</a>
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <script>
+        // Add a confirmation prompt on form submission
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            const confirmUpload = confirm('Are you sure you want to upload this file?');
+            if (!confirmUpload) {
+                event.preventDefault(); // Prevent the form from submitting if not confirmed
+            }
+        });
+    </script>
+</body>
+</html>

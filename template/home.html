@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSDI Web App</title>
+    <style>
+        /* General reset for margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Main container */
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        /* Header styling */
+        h1 {
+            font-size: 2.2em;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        /* Anchor tags styling */
+        .link-container {
+            margin-top: 20px;
+        }
+
+        .link-container a {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .link-container a.add-company {
+            background-color: #27ae60;
+        }
+
+        .link-container a.add-student {
+            background-color: #e74c3c;
+        }
+
+        /* Show All Companies Button */
+        .link-container a.show-companies {
+            background-color: #3498db; /* Blue color */
+        }
+
+        /* Hover effect */
+        .link-container a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FSDI Web App</h1>
+        <p>Welcome to the FSDI Web App. Please select an option below:</p>
+
+        <div class="link-container">
+            <a href="{% url 'company:company_create' %}" class="add-company">Add Company</a>
+            <a href="{% url 'student:student_create' %}" class="add-student">Add Student</a>
+            <!-- New button to show all companies -->
+            <a href="{% url 'company:company_list' %}" class="show-companies">Show All Companies</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.name }}'s Companies</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #3498db;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1em;
+            margin: 8px 0;
+            text-align: center;
+        }
+
+        /* Compact Highlight for Counts */
+        .highlight-count {
+            background-color: #3498db; /* Blue color */
+            color: white;
+            font-size: 1.2em; /* Smaller font size */
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-count:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            transform: scale(1.05);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #d6eaf8;
+        }
+
+        /* Highlight for scheduled companies */
+        .scheduled {
+            background-color: #e8f5e9; /* Light green for scheduled companies */
+        }
+
+        .added {
+            background-color: #eaf1f7; /* Light blue for added companies */
+        }
+
+        /* Button Styling */
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #3498db;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #2874a6;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ student.name }}'s Companies</h2>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Phone Number:</strong> {{ student.ph_no }}</p>
+        <p><strong>Branch:</strong> {{ student.branch }}</p>
+
+        <h3>Company Information</h3>
+        
+        <!-- Added Companies Section -->
+        <p>
+            <strong>Total Companies Added:</strong> 
+            <span id="added-count" class="highlight-count">{{ total_companies }}</span>
+        </p>
+        
+        <!-- Scheduled Companies Section -->
+        <p>
+            <strong>Total Scheduled Companies:</strong> 
+            <span id="scheduled-count" class="highlight-count">{{ total_scheduled }}</span>
+        </p>
+
+        <table id="company-table">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Company Code</th>
+                    <th>Requirement Date</th>
+                    <th>Is Scheduled</th>
+                    <th>Schedule Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in companies %}
+                    <tr id="company-{{ company.id }}" class="company-row">
+                        <td>{{ company.name }}</td>
+                        <td>{{ company.company_code }}</td>
+                        <td>{{ company.requirement_date }}</td>
+                        <td>{{ company.is_scheduled|yesno:"Yes,No" }}</td>
+                        <td>{{ company.schedule_date|default:"Not Scheduled" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'student:student_list' %}" class="back-btn">Back to Students List</a>
+    </div>
+
+    <script>
+        // Optional: Add smooth scrolling effect when navigating back to the list
+        document.querySelector('.back-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                window.location.href = event.target.href;
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ view.object.pk|default:"Create New Company" }}</title>
+    <style>
+        /* General Reset and Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* White background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Form Container Styling */
+        .form-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: slideIn 1s ease-out;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 30px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* Input and Button Styling */
+        form p {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], input[type="date"], input[type="file"], select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+        }
+
+        /* Larger Placeholder Text */
+        input::placeholder {
+            font-size: 1.2em; /* Increase the placeholder size */
+            color: #7f8c8d; /* Slightly lighter color for placeholder */
+        }
+
+        /* Input and Button Focus Effects */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border: 1px solid #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1.1em;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* Link as Button Styling */
+        .btn-link {
+            display: inline-block;
+            padding: 12px 20px;
+            margin-top: 15px;
+            background-color: #ecf0f1; /* Lighter background */
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            background-color: #d0d3d4;
+            color: #2980b9;
+        }
+
+        /* Checkbox and Radio Button Styling */
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 8px;
+            accent-color: #3498db; /* Use accent color for checkboxes/radios */
+            transform: scale(1.2); /* Slightly increase size */
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>{{ view.object.pk|default:"Create New Company" }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+
+        <a href="{% url 'company:company_list' %}" class="btn-link">Cancel</a>
+
+        <!-- Additional Links -->
+        <div>
+            <a href="{% url 'home' %}" class="btn-link">Home</a>
+            <a href="{% url 'student:student_create' %}" class="btn-link">Add Student</a>
+        </div>
+    </div>
+</body>
+</html>
