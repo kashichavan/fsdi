@@ -123,6 +123,24 @@
                 transform: translateY(0);
             }
         }
+
+        /* Small button to add student by phone number */
+        .add-student-btn {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            font-size: 1.1em;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .add-student-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -135,6 +153,9 @@
             <button type="submit">Upload</button>
         </form>
         <a href="{% url 'company:company_detail' company.id %}">Back to Company Details</a>
+
+        <!-- Link to Add Student by Phone Number -->
+        <a href="{% url 'company:add_student_to_company' company.id %}" class="add-student-btn">Add Student by Phone Number</a>
 
         {% if messages %}
             <ul>
